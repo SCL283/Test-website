@@ -1,13 +1,16 @@
+// Backend URL
+const BASE_URL = 'https://test-website-decz.onrender.com';
+
 // Function to fetch recipes from the server
 function fetchRecipes() {
-    return fetch('/api/recipes')
+    return fetch(`${BASE_URL}/api/recipes`)
         .then(response => response.json())
         .then(data => data);
 }
 
 // Function to submit a new recipe to the server
 function submitRecipe(recipe) {
-    return fetch('/api/recipes', {
+    return fetch(`${BASE_URL}/api/recipes`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -46,3 +49,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
