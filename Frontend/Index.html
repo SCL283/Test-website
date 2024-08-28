@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Recipe Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        #recipes {
+            margin-bottom: 20px;
+        }
+
+        #recipe-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #recipe-list li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label, input, textarea, button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Recipe Website</h1>
+    </header>
+    <main>
+        <section id="recipes">
+            <h2>Recipes</h2>
+            <ul id="recipe-list"></ul>
+        </section>
+        <section id="submit-recipe">
+            <h2>Submit a Recipe</h2>
+            <form id="recipe-form">
+                <label for="name">Recipe Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        // Simulated fetch from server
+        function fetchRecipes() {
+            return fetch('/api/recipes')
+                .then(response => response.json())
+                .then(data => data);
+        }
+
+        // Simulated recipe submission
+        function submitRecipe(recipe) {
+            return fetch('/api/recipes', {
+                method: 'POST',
+                headers: {
+                    'Co
