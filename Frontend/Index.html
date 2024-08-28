@@ -4,46 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Recipe Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #f4f4f4;
-            padding: 10px;
-            text-align: center;
-        }
-
-        main {
-            padding: 20px;
-        }
-
-        #recipes {
-            margin-bottom: 20px;
-        }
-
-        #recipe-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #recipe-list li {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label, input, textarea, button {
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -78,4 +39,41 @@
             return fetch('/api/recipes', {
                 method: 'POST',
                 headers: {
-                    'Co
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(recipe)
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const recipeList = document.getElementById('recipe-list');
+            const form = document.getElementById('recipe-form');
+
+            // Load recipes on page load
+            fetchRecipes().then(data => {
+                data.forEach(recipe => {
+                    const li = document.createElement('li');
+                    li.textContent = `${recipe.name}: ${recipe.description}`;
+                    recipeList.appendChild(li);
+                });
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const name = document.getElementById('name').value;
+                const description = document.getElementById('description').value;
+
+                submitRecipe({ name, description }).then(() => {
+                    const li = document.createElement('li');
+                    li.textContent = `${name}: ${description}`;
+                    recipeList.appendChild(li);
+
+                    // Clear form fields
+                    form.reset();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
